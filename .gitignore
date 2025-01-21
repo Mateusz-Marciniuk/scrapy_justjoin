@@ -1,0 +1,50 @@
+# Ignorowanie plików i folderów związanych z Pythonem
+*.py[cod]
+__pycache__/
+*.pyo
+*.pyd
+*.pdb
+
+# Ignorowanie plików wirtualnego środowiska Python
+venv/
+ENV/
+env/
+.venv/
+
+# Ignorowanie plików i folderów logów
+*.log
+logs/
+*.out
+*.err
+
+# Ignorowanie danych scrapy
+.scrapy/
+link.json
+result.csv
+output.xml
+*.db
+*.sqlite3
+*.sqlite
+
+# Ignorowanie plików środowiska
+.env
+.env.*
+
+# Ignorowanie danych sesji lub użytkownika
+*.session
+
+# Ignorowanie plików IDE i edytorów
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# Ignorowanie plików systemowych
+.DS_Store
+Thumbs.db
+desktop.ini
+*.~lock.*
+
+# Ignorowanie folderów testowych
+tests/__pycache__/
+tests/tmp/

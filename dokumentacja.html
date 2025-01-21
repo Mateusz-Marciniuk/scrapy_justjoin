@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dokumentacja Projektu: Scrapowanie JustJoinIT za pomocą Scrapy</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; margin: 0; padding: 0; background-color: #f9f9f9; color: #333; }
+        header { background: #333; color: #fff; padding: 1em 0; text-align: center; }
+        main { padding: 2em; max-width: 800px; margin: auto; background: #fff; }
+        h1, h2, h3 { color: #333; }
+        pre { background: #f4f4f4; padding: 1em; border: 1px solid #ddd; overflow-x: auto; }
+        code { color: #c7254e; background-color: #f9f2f4; padding: 0.2em; border-radius: 4px; }
+        footer { text-align: center; padding: 1em 0; background: #333; color: #fff; margin-top: 2em; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Scrapowanie Ofert Pracy z JustJoinIT</h1>
+        <p>Dokumentacja Projektu: Wykorzystanie Scrapy do Analizy Wymaganych Umiejętności</p>
+    </header>
+    <main>
+        <section>
+            <h2>1. Skład Zespołu i Role</h2>
+            <p>Projekt został zrealizowany przez Mateusza Marciniuka. który pełnił określone role, w tym:</p>
+            <ul>
+                <li><strong>Inżynier Danych:</strong> Odpowiedzialny za konfigurację i uruchomienie frameworka Scrapy.</li>
+                <li><strong>Specjalista ds. Scrapowania:</strong> Opracowanie i optymalizacja logiki spidera.</li>
+                <li><strong>Analityk Danych:</strong> Przetwarzanie i wizualizacja zebranych danych.</li>
+                <li><strong>Specjalista ds. Dokumentacji:</strong> Opracowanie i formatowanie dokumentacji projektu.</li>
+            </ul>
+        </section>
+        
+        <section>
+            <h2>2. Tematyka Projektu</h2>
+            <p>Projekt koncentruje się na scrapowaniu danych za pomocą frameworka Scrapy w celu analizy ofert pracy na stronie JustJoinIT. Projekt skierowany jest do osób planujących rozpoczęcie kariery w branży IT oraz poszukujących informacji o najbardziej pożądanych umiejętnościach w regionie Śląska. Wybór ścieżki kariery w IT często wiąże się z wyzwaniem zrozumienia dynamicznie zmieniających się wymagań rynkowych. Wskazanie, jakie umiejętności cieszą się największym zainteresowaniem pracodawców, może znacząco ułatwić planowanie rozwoju zawodowego oraz wybór odpowiednich technologii do nauki</p>
+        </section>
+
+        <section>
+            <h2>3. Cel Projektu</h2>
+            <p>Celem było wyodrębnienie umiejętności z ofert pracy na Śląsku zamieszczonych na JustJoinIT, analiza ich częstotliwości oraz wizualizacja 10 najczęściej wymaganych umiejętności.</p>
+        </section>
+
+        <section>
+            <h2>4. Implementacja i Metodyka</h2>
+            <p>Projekt został zrealizowany w następujących krokach:</p>
+            <ol>
+                <li><strong>Konfiguracja Scrapy:</strong> Inicjalizacja frameworka Scrapy i konfiguracja ustawień dla efektywnego scrapowania.</li>
+                <li><strong>Opracowanie Spidera:</strong> Stworzono spidera, który zbiera linki do ofert pracy i wyodrębnia wymagane umiejętności z każdej oferty.</li>
+                <li><strong>Paginacja:</strong> Spider dynamicznie ładował kolejne oferty poprzez symulację przewijania strony, aż do wyczerpania dostępnych linków.</li>
+                <li><strong>Przechowywanie Danych:</strong> Wyodrębnione umiejętności zostały zapisane w pliku CSV do dalszej analizy.</li>
+                <li><strong>Analiza Danych:</strong> Dane zostały zagregowane, policzone i posortowane w celu identyfikacji najczęściej wymienianych umiejętności.</li>
+                <li><strong>Wizualizacja:</strong> Stworzono wykres słupkowy używając biblioteki matplotlib. Wykres przedstawia 10 najczęściej wymaganych umiejętności.</li>
+            </ol>
+        </section>
+
+        <section>
+            <h2>5. Zadania i Sposób Ich Realizacji</h2>
+            <p>Kluczowe zadania w projekcie:</p>
+            <ul>
+                <li>Opracowanie spidera w Scrapy do obsługi dynamicznej paginacji i scrapowania danych.</li>
+                <li>Implementacja logiki do wyodrębniania umiejętności z opisów ofert pracy.</li>
+                <li>Przetwarzanie surowych danych do ustrukturyzowanego formatu CSV.</li>
+                <li>Analiza częstości występowania wyodrębnionych umiejętności.</li>
+                <li>Tworzenie wizualizacji przedstawiającej 10 najczęściej wymaganych umiejętności.</li>
+            </ul>
+            <p><strong>Cały kod wraz z plikiem z zaleznościami (który można zainstalować poleceniem pip install -r requirements.txt), zawierającym niezbędne biblioteki został skompresowany do katalogu projekt_Mateusz.Marciniuk.zip
+            </strong></p>
+        </section>
+        <section>
+            <h2>5. Problemy Napotkane Podczas Developmentu</h2>
+            <p>Podczas pracy nad projektem napotkano problem związany z niezgodnością selektorów CSS w nowej wersji strony JustJoinIT. Konieczna była aktualizacja kodu, aby dostosować go do zmian na stronie.</p>
+            <p>Zmiany w kodzie:</p>
+            <ul>
+                <li>
+                    <strong>Poprzedni kod dla metody <code>parse</code>:</strong>
+                    <pre><code class="language-python">
+def parse(self, response):
+    global len_link
+    len_link = len(response.css('a.offer_list_offer_link').getall())
+    for link in response.css('a.offer_list_offer_link::attr(href)').getall():
+        # Logika dla linków
+        pass
+                    </code></pre>
+                </li>
+                <li>
+                    <strong>Nowy kod dla metody <code>parse</code>:</strong>
+                    <pre><code class="language-python">
+def parse(self, response):
+    global len_link
+    len_link = len(response.css('a[target="_parent"]::attr(href)').getall())
+    links = response.css('a[target="_parent"]::attr(href)').getall()
+    for link in links:
+        # Logika dla linków
+        pass
+                    </code></pre>
+                </li>
+            </ul>
+            <p>Zmiana wynikała z konieczności dostosowania selektorów do nowego układu elementów HTML na stronie.</p>
+        </section>
+
+        <section>
+            <h2>6. Wizualizacja Wyników</h2>
+            <p>Poniżej znajduje się zrzut ekranu (z działającego programu) przedstawiający wykres słupkowy z 10 najczęściej występującymi umiejętnościami w województwie śląskim w dniu 17.01.2025 na stronie JustJoinIT:</p>
+            <img src="image.png" alt="Wykres słupkowy przedstawiający 10 najczęściej wymaganych umiejętności">
+        </section>
+
+        <section>
+            <h2>6. Wnioski</h2>
+            <p>Projekt udowodnił, że Scrapy może być skutecznie wykorzystane do pozyskiwania wartościowych danych z sieci. Analiza ujawniła 10 najczęściej wymaganych umiejętności w regionie Śląska, co może pomóc zarówno osobom poszukującym pracy, jak i pracodawcom w dostosowaniu swoich umiejętności i oczekiwań.</p>
+        </section>
+
+        <section>
+            <h2>7. Bibliografia</h2>
+            <ul>
+                <li>Dokumentacja Scrapy: <a href="https://docs.scrapy.org">https://docs.scrapy.org</a></li>
+                <li>Strona JustJoinIT: <a href="https://justjoin.it">https://justjoin.it</a></li>
+                <li>Moduł CSV w Pythonie: <a href="https://docs.python.org/3/library/csv.html">https://docs.python.org/3/library/csv.html</a></li>
+            </ul>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2025 Podstawy Programowania w python Mateusz Marciniuk</p>
+    </footer>
+</body>
+</html>
